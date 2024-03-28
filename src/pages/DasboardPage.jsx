@@ -108,6 +108,26 @@ function DasboardPage() {
                             key: '6',
                             icon: <MdInsertChartOutlined />,
                             label: 'Statistics',
+                            children: [
+                                {
+                                    key: '61',
+                                    icon: <MdFormatListBulleted  />,
+                                    label: 'Day',
+                                    onClick: () => navigate('/categories/add'),
+                                },
+                                {
+                                    key: 'Month',
+                                    icon: <MdFormatListBulleted />,
+                                    label: 'Month',
+                                    onClick: () => navigate('/categories/list'),
+                                },
+                                {
+                                    key: 'Year',
+                                    icon: <MdFormatListBulleted />,
+                                    label: 'Year',
+                                    onClick: () => navigate('/categories/list'),
+                                },
+                            ],
                         },
                         {
                             key: '7',
