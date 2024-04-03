@@ -22,7 +22,9 @@ class AddOrEditCategory extends Component {
                             <Form.Item label="Category ID" name="categoryId">
                                 <Input readOnly></Input>
                             </Form.Item>
-                            <Form.Item label="Name" name="name" rules={[{ required: true, min: 2 }]}>
+                            <Form.Item label="Name" 
+                                        name="name" 
+                                        rules={[{ required: true, min: 2 }]}>
                                 <Input></Input>
                             </Form.Item>
                             <Form.Item label="Status" name="status" initialValue={'0'}>
