@@ -68,7 +68,7 @@ class ListCategory extends Component {
                             render={(_, { status }) => {
                                 let color = 'volcano';
                                 let name = 'In-visible';
-                                if (status == 0) {
+                                if (status === 0) {
                                     color = 'green';
                                     name = 'visible';
                                 }

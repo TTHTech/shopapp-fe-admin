@@ -116,13 +116,13 @@ function DasboardPage() {
                                     onClick: () => navigate('/categories/add'),
                                 },
                                 {
-                                    key: 'Month',
+                                    key: '62',
                                     icon: <MdFormatListBulleted />,
                                     label: 'Month',
                                     onClick: () => navigate('/categories/list'),
                                 },
                                 {
-                                    key: 'Year',
+                                    key: '63',
                                     icon: <MdFormatListBulleted />,
                                     label: 'Year',
                                     onClick: () => navigate('/categories/list'),
