@@ -1,6 +1,6 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Col, Layout, Menu, Row, theme } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     MdOutlineHome,
     MdCategory,
@@ -18,8 +18,11 @@ import { Outlet, Route, Routes, useNavigate } from 'react-router-dom';
 import AddOrEditCategory from '../components/categories/AddOrEditCategory';
 import ListCategory from '../components/categories/ListCategory';
 import Home from '../components/home/Home';
-
+import { useDispatch } from 'react-redux';
+import { setMessage } from '../redux/actions/commonAction'; // Đường dẫn này phụ thuộc vào vị trí của file actions trong dự án của bạn
+import { message } from 'antd';
 import './DashboardPage.css';
+import { useSelector } from 'react-redux';
 
 const { Header, Sider, Content } = Layout;
 
@@ -28,7 +31,15 @@ function DasboardPage() {
     const [collapsed, setCollapsed] = useState(false);
 
     const navigate = useNavigate();
-
+    const msg = useSelector((state) => state.commonReducer.message);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if(msg){
+            
+            dispatch(setMessage(''));
+            message.success(msg);
+        }
+    }, [msg,dispatch]);
     const {
         token: { colorBgContainer },
     } = theme.useToken();
