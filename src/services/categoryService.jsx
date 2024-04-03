@@ -16,4 +16,12 @@ export default class CategoryService {
             console.error('There was an error!', error);
         }
     };
+    getCategories = async () => {
+        try {
+            const response = await axios.get(API_CATEGORY);
+            return response;
+        } catch (error) {
+            console.error('There was an error!', error);
+        }
+    }
 }

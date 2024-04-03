@@ -2,8 +2,17 @@ import { Button, Modal, Space, Table, Tag } from 'antd';
 import React, { Component } from 'react';
 import withRouter from '../../helpers/withRouter';
 import ContentHeader from '../common/ContentHeader';
+import { connect } from 'react-redux';
 
-import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { 
+    getCategories, 
+    clearCategoryState 
+} from '../../redux/actions/categoryAction';
+import { 
+    EditOutlined, 
+    DeleteOutlined, 
+    ExclamationCircleOutlined 
+} from '@ant-design/icons';
 
 const { Column, ColumnGroup } = Table;
 
@@ -11,17 +20,25 @@ class ListCategory extends Component {
     constructor() {
         super();
         this.state = {
-            dataSource: [
-                { categoryId: 1, name: 'Computer', status: 0 },
-                { categoryId: 1, name: 'Computer', status: 0 },
-                { categoryId: 2, name: 'Laptop', status: 1 },
-                { categoryId: 3, name: 'Usb', status: 0 },
-                { categoryId: 4, name: 'PC', status: 1 },
-                { categoryId: 5, name: 'Mouse', status: 0 },
-                { categoryId: 6, name: 'Server', status: 1 },
-            ],
+            // dataSource: [
+            //     { categoryId: 1, name: 'Computer', status: 0 },
+            //     { categoryId: 1, name: 'Computer', status: 0 },
+            //     { categoryId: 2, name: 'Laptop', status: 1 },
+            //     { categoryId: 3, name: 'Usb', status: 0 },
+            //     { categoryId: 4, name: 'PC', status: 1 },
+            //     { categoryId: 5, name: 'Mouse', status: 0 },
+            //     { categoryId: 6, name: 'Server', status: 1 },
+            // ],
             category: {},
         };
+    }
+    componentDidMount =() => {
+        this.props.getCategories();
+        console.log('did Mount');
+    }
+    componentWillUnmount = () => {
+        this.props.clearCategoryState();
+        console.log('will unmount');   
     }
     editCategory = (category) => {
         console.log(category);
@@ -47,15 +64,16 @@ class ListCategory extends Component {
     };
     render() {
         const { navigate } = this.props.router;
+        const { categories } = this.props;
         return (
             <>
                 <ContentHeader navigate={navigate} title="List Categories" className="site-page-header"></ContentHeader>
-                <Table dataSource={this.state.dataSource} size="small" rowKey="categoryId">
+                <Table dataSource={categories} size="small" rowKey="id">
                     <ColumnGroup>
                         <Column
                             title="Category ID"
-                            key="categoryId"
-                            dataIndex="categoryId"
+                            key="id"
+                            dataIndex="id"
                             width={40}
                             align="center"
                         ></Column>
@@ -110,4 +128,15 @@ class ListCategory extends Component {
     }
 }
 
-export default withRouter(ListCategory);
+const mapStateToProps = (state) => ({
+    categories: state.categoryReducer.categories,
+});
+
+const mapDispatchToProps = {
+    getCategories,
+    clearCategoryState,
+};
+
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(ListCategory)
+);
