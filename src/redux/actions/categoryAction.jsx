@@ -1,5 +1,5 @@
 import CategoryService from '../../services/categoryService';
-import { CATEGORY_SET, CATEGORY_STATE_CLEAR, COMMON_MESSAGE_SET, COMMON_ERROR_SET, CATEGORIES_SET, CATEGORY_DELETE, COMMON_LOADING_SET } from './actionTypes';
+import { CATEGORY_SET, CATEGORY_STATE_CLEAR, COMMON_MESSAGE_SET, COMMON_ERROR_SET, CATEGORIES_SET, COMMON_LOADING_SET, CATEGORY_DELETE } from './actionTypes';
 export const insertCategory = (category, navigate) => async (dispatch) => {
     const service = new CategoryService();
 
@@ -65,22 +65,26 @@ export const getCategories = () => async (dispatch) => {
             
         }
     } catch (error) {
-        console.log('error' + error);
         dispatch({
             type: COMMON_ERROR_SET,
             payload: error.response.data ? error.response.data.message : error.message,
         });
-        dispatch({
-            type: COMMON_LOADING_SET,
-            payload: false,
-        
-        })
     }
+    dispatch({
+        type: COMMON_LOADING_SET,
+        payload: false,    
+    })
 };
 export const deleteCategory = (id) => async (dispatch) => {
+
     const service = new CategoryService();
     try {
         console.log('delete Category');
+        dispatch({
+            type: COMMON_LOADING_SET,
+            payload: true,
+        
+        })
         const response = await service.deleteCategory(id);
         console.log(response);
         if (response.status === 200) {
@@ -91,7 +95,7 @@ export const deleteCategory = (id) => async (dispatch) => {
             dispatch({
                 type: COMMON_MESSAGE_SET,
                 payload: response.data,
-            });
+            })
         }else{
             dispatch({
                 type: COMMON_ERROR_SET,
@@ -100,12 +104,17 @@ export const deleteCategory = (id) => async (dispatch) => {
         
         }
     } catch (error) {
-        console.log('error' + error);
         dispatch({
             type: COMMON_ERROR_SET,
-            payload: error,
+            payload: error.response.data ? error.response.data.message : error.message,
         });
+        
     }
+    dispatch({
+        type: COMMON_LOADING_SET,
+        payload: false,
+    
+    })
 };
 export const clearCategoryState = () =>  (dispatch) => {
     dispatch({

@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 
 import { 
     getCategories, 
-    clearCategoryState 
+    clearCategoryState,
+    deleteCategory
 } from '../../redux/actions/categoryAction';
 import { 
     EditOutlined, 
@@ -43,8 +44,20 @@ class ListCategory extends Component {
     editCategory = (category) => {
         console.log(category);
     };
-    DeleteCategory = () => {
-        console.log(this.state.category);
+    deleteCategory = (id) => {
+        Modal.confirm({
+            title: 'Are you sure delete this category?',
+            content: 'Some descriptions',
+            okText: 'Yes',
+            okType: 'danger',
+            cancelText: 'No',
+            onOk: () => {
+                this.props.deleteCategory(id);
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
+        });
     };
 
     openDeleteConfirmModal = (category) => {
@@ -57,7 +70,7 @@ class ListCategory extends Component {
             title: 'Confirm',
             icon: <ExclamationCircleOutlined />,
             content: message,
-            onOk: this.DeleteCategory,
+            onOk: this.deleteCategory,
             okText: 'Delete',
             cancelText: 'Cancel',
         });
@@ -113,14 +126,15 @@ class ListCategory extends Component {
                                         size="small"
                                         onClick={() => this.editCategory(record)}
                                     >
-                                        <EditOutlined style={{ marginRight: 8 }} /> Edit
+                                        <EditOutlined style={{ marginRight: 8 }} /> 
+                                        Edit
                                     </Button>
                                     <Button
                                         key={record.key}
                                         type="primary"
                                         danger
                                         size="small"
-                                        onClick={() => this.openDeleteConfirmModal(record)}
+                                        onClick={() => this.deleteCategory(record.id)}
                                     >
                                         <DeleteOutlined style={{ marginRight: 8 }} />
                                         Delete
@@ -143,6 +157,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     getCategories,
     clearCategoryState,
+    deleteCategory, // add this line
 };
 
 export default withRouter(

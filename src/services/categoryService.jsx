@@ -28,7 +28,7 @@ export default class CategoryService {
     }
     deleteCategory = async (id) => {
         try {
-            const response = await axios.delete(API_CATEGORY + "/" + id);
+            const response = await axios.delete(API_CATEGORY + '/' + id);
             return response;
         } catch (error) {
             console.error('There was an error!', error);
