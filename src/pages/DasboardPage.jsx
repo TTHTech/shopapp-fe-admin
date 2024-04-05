@@ -19,7 +19,7 @@ import AddOrEditCategory from '../components/categories/AddOrEditCategory';
 import ListCategory from '../components/categories/ListCategory';
 import Home from '../components/home/Home';
 import { useDispatch } from 'react-redux';
-import { setMessage } from '../redux/actions/commonAction'; // Đường dẫn này phụ thuộc vào vị trí của file actions trong dự án của bạn
+import { setError, setMessage } from '../redux/actions/commonAction'; 
 import { message } from 'antd';
 import './DashboardPage.css';
 import { useSelector } from 'react-redux';
@@ -32,14 +32,18 @@ function DasboardPage() {
 
     const navigate = useNavigate();
     const msg = useSelector((state) => state.commonReducer.message);
+    const err = useSelector((state) => state.commonReducer.error);
     const dispatch = useDispatch();
     useEffect(() => {
-        if(msg){
-            
-            dispatch(setMessage(''));
+        if (msg) {
+            dispatch(setMessage(""));
             message.success(msg);
         }
-    }, [msg,dispatch]);
+        if (err) {
+            dispatch(setError(""));
+            message.error(err);
+        }
+    }, [msg, err, dispatch]);
     const {
         token: { colorBgContainer },
     } = theme.useToken();
@@ -122,7 +126,7 @@ function DasboardPage() {
                             children: [
                                 {
                                     key: '61',
-                                    icon: <MdFormatListBulleted  />,
+                                    icon: <MdFormatListBulleted />,
                                     label: 'Day',
                                     onClick: () => navigate('/categories/add'),
                                 },

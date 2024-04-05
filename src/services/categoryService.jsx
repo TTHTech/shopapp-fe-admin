@@ -14,6 +14,7 @@ export default class CategoryService {
             return response;
         } catch (error) {
             console.error('There was an error!', error);
+            throw error;
         }
     };
     getCategories = async () => {
@@ -22,6 +23,16 @@ export default class CategoryService {
             return response;
         } catch (error) {
             console.error('There was an error!', error);
+            throw error;
+        }
+    }
+    deleteCategory = async (id) => {
+        try {
+            const response = await axios.delete(API_CATEGORY + "/" + id);
+            return response;
+        } catch (error) {
+            console.error('There was an error!', error);
+            throw error;
         }
     }
 }

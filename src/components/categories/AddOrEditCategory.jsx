@@ -13,6 +13,7 @@ class AddOrEditCategory extends Component {
     };
     render() {
         const { navigate } = this.props.router;
+        const {isLoading} = this.props;
         return (
             <div>
                 <ContentHeader
@@ -36,7 +37,10 @@ class AddOrEditCategory extends Component {
                                 </Select>
                             </Form.Item>
                             <Divider></Divider>
-                            <Button htmlType="submit" type="primary" style={{ float: 'right' }}>
+                            <Button htmlType="submit" 
+                                    type="primary" 
+                                    style={{ float: 'right' }}
+                                    loading = {isLoading}>
                                 Save
                             </Button>
                         </Col>
@@ -49,6 +53,7 @@ class AddOrEditCategory extends Component {
 
 const mapStateToProps = (state) => ({
     category: state.categoryReducer.category,
+    isLoading: state.categoryReducer.isLoading,
 });
 
 const mapDispatchToProps = {
