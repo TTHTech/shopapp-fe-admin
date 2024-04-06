@@ -35,4 +35,23 @@ export default class CategoryService {
             throw error;
         }
     }
+    getCategory = async (id) => {
+        try {
+            const response = await axios.get(API_CATEGORY + '/' + id + '/get');
+            return response;
+        } catch (error) {
+            console.error('There was an error!', error);
+            throw error;
+        }
+    }
+    updateCategory = async (id, category) => {
+        try {
+            const response = await axios.patch(API_CATEGORY + '/' + id, category);
+            return response;
+        } catch (error) {
+            console.error('There was an error!', error);
+            throw error;
+        }
+    }
+    
 }

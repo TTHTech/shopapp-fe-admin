@@ -1,5 +1,5 @@
 {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "cSpell.words": ["antd", "Dasboard", "reduxjs", "Sider"]
+    "cSpell.words": ["antd", "Dasboard", "Popconfirm", "reduxjs", "Sider"]
 }

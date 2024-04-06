@@ -43,6 +43,8 @@ class ListCategory extends Component {
     }
     editCategory = (category) => {
         console.log(category);
+        const {navigate} = this.props.router;
+        navigate('/categories/update/' + category.id);
     };
     deleteCategory = (id) => {
         Modal.confirm({
