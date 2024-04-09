@@ -66,10 +66,10 @@ class AddOrEditCategory extends Component {
                     title={title}
                     className="site-page-header"
                 ></ContentHeader>
-                <Form layout="vertical" className="form" onFinish={this.onSubmitForm} key={category.id} ref={this.formRef}>
+                <Form layout="vertical" className="form" onFinish={this.onSubmitForm} key={category.id} ref={this.formRef} disabled={isLoading}>
                     <Row>
                         <Col md={12}>
-                            <Form.Item label="Category ID" name="categoryId" initialValue={category.id}>
+                            <Form.Item label="Category ID" name="categoryId" initialValue={category.id} hidden={category.id ? false : true}>
                                 <Input readOnly></Input>
                             </Form.Item>
                             <Form.Item label="Name" name="name" initialValue={category.name} rules={[{ required: true, min: 2 }]}>
